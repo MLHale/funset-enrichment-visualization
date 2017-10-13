@@ -60,6 +60,13 @@ Open a separate terminal and:
 cd frontend
 ember build -w -o ../backend/static/ember
 ```
+### Running the app
+You can run the backend server using the following (executed from the build directory):
+
+```bash
+docker-compose up
+```
+Now visit `localhost` in your host browser to view the app.
 
 ### Updating to latest versions of of the code
 To update to the latest frontend and backend codebases, simply do the following to update the provided submodules.
