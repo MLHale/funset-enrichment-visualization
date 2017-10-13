@@ -21,7 +21,16 @@ docker-compose build
 ```
 
 This creates a few docker containers with all of the requisite installed dependencies to run the dev environment.
+Now initialize the new database:
 
+```bash
+docker-compose run django bash
+python manage.py makemigrations
+python manage.py migrate
+python manage.py createsuperuser
+# provide admin credentials
+exit
+```
 ### Development Environment Setup
 First, upon initial install, you need to build the ember dependencies. Do the following (on the host):
 
