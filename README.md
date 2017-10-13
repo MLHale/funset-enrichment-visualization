@@ -10,6 +10,13 @@ You need to build the docker image from the provided DockerFile and Docker Compo
 ```bash
 git clone --recursive https://github.com/MLHale/pathway-viz-builds.git
 cd pathway-viz-builds
+git submodule sync
+git submodule update --init --recursive --remote
+cd backend/
+git checkout master
+cd ../frontend/
+git checkout master
+cd ..
 docker-compose build
 ```
 
@@ -27,6 +34,8 @@ Then:
 cd frontend/
 npm install
 ```
+
+
 
 ### Ember to Django Build Pipeline
 Turns out docker has poor performance for bound volumes. Until it is resolved, the recommended build process is the following:
