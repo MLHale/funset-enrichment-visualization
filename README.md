@@ -32,7 +32,7 @@ python manage.py createsuperuser
 exit
 ```
 ### Development Environment Setup
-First, upon initial install, you need to build the ember dependencies. Do the following (on the host):
+If you plan to edit the client-side app, you need to,  upon initial install, build the ember dependencies. Do the following (on the host):
 
 * install npm 6.0.0+
 * install ember-cli 2.16.2 +
@@ -47,19 +47,13 @@ npm install
 
 
 ### Ember to Django Build Pipeline
-Turns out docker has poor performance for bound volumes. Until it is resolved, the recommended build process is the following:
-
-```bash
-docker-compose up
-```
-This will run the django container, binding the server to localhost:8000
-
-Open a separate terminal and:
+The following commands compiles and pushes the latest client code to the server:
 
 ```bash
 cd frontend
 ember build -w -o ../backend/static/ember
 ```
+
 ### Running the app
 You can run the backend server using the following (executed from the build directory):
 
@@ -76,6 +70,11 @@ cd frontend
 git pull
 cd ../backend
 git pull
+```
+or type:
+
+```bash
+git submodule update --remote
 ```
 
 ## Collaborating on this project
@@ -118,7 +117,7 @@ sudo docker run \
   google/cadvisor:latest
 ```
 
-Now visit ```localhost:8080``` to view the current performance. You should see monitoring tools that resemble:
+Now visit ```localhost:8080``` or ```<ip>:8080``` to view the current performance. You should see monitoring tools that resemble:
 
 ![cadvisor](docs/img/cadvisor.png)
 
