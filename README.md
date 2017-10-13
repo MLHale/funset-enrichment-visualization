@@ -1,5 +1,5 @@
-# cybertrust-builds
-Contains docker files for dev and production builds of cybertrust
+# pathway-viz-build
+Contains docker files for dev and production builds of the Pathway Viz project
 
 ### Requirements
 * Docker (https://www.docker.com/)
