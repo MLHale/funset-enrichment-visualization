@@ -4,3 +4,7 @@
 [submodule "frontend"]
 	path = frontend
 	url = https://github.com/MLHale/pathway-viz-frontend
+[submodule "GOUtil"]
+	path = GOUtil
+	url = https://github.com/thecodingdoc/GOUtil
+	branch = master
