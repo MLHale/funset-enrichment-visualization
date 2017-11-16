@@ -13,6 +13,7 @@ services:
     command: python /var/www/backend/manage.py runserver 0.0.0.0:8000
     volumes:
       - ./backend:/var/www/backend
+      - ./GOUtil:/GOUtil
     ports:
      - "80:8000"
     depends_on:
