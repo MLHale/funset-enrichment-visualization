@@ -13,15 +13,10 @@ ENV PYTHONUNBUFFERED 1
 
 # Setup linkages to code repositories and add to image
 
-ENV APP_USER pathviz
+
 ENV APP_ROOT /var/www/backend
-RUN mkdir /var/www;
-RUN mkdir /var/www/backend
-RUN groupadd -r ${APP_USER} \
-    && useradd -r -m \
-    --home-dir ${APP_ROOT} \
-    -s /usr/sbin/nologin \
-    -g ${APP_USER} ${APP_USER}
+
+
 
 WORKDIR ${APP_ROOT}
 
@@ -51,5 +46,13 @@ RUN pip install django-ipware
 
 RUN pip install gunicorn==19.6.0
 
+ENV APP_USER pathviz
+RUN mkdir /var/www;
+RUN mkdir /var/www/backend
+RUN groupadd -r ${APP_USER} \
+    && useradd -r -m \
+    --home-dir ${APP_ROOT} \
+    -s /usr/sbin/nologin \
+    -g ${APP_USER} ${APP_USER}
 #USER ${APP_USER}
 ADD . ${APP_ROOT}
