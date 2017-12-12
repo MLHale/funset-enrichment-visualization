@@ -4,7 +4,7 @@ Contains docker files for dev and production builds of the Pathway Viz project
 ### Requirements
 * Docker (https://www.docker.com/)
 
-### Installation
+### Installation in development
 You need to build the docker image from the provided DockerFile and Docker Compose. To do this:
 
 ```bash
@@ -46,15 +46,15 @@ npm install
 
 
 
-### Ember to Django Build Pipeline
+### Running the ember app
 The following commands compiles and pushes the latest client code to the server:
 
 ```bash
 cd frontend
-ember build -w -o ../backend/static/ember
+ember s
 ```
 
-### Running the app
+### Running the backend in development
 You can run the backend server using the following (executed from the build directory):
 
 ```bash
@@ -75,6 +75,23 @@ or type:
 
 ```bash
 git submodule update --remote
+```
+### Deployment for production
+For deploying the server to AWS EC2:
+
+- deploy a new amazon ec2 ubuntu instance using the AWS Console
+- install Docker and `docker-compose` on ubuntu
+- do the following
+```bash
+git clone --recursive https://github.com/MLHale/pathway-viz-builds.git
+cd pathway-viz-builds/config/deployment
+docker-compose up --build -d
+docker-compose exec django bash
+../../GOUtil g++ -O3 -o enrich enrich.C utilities.C --std=gnu++11
+python manage.py createsuperuser
+python loadterms.py -i data/<path to terms obo file>
+python loadsimilarityscores.py -i
+
 ```
 
 ## Collaborating on this project
