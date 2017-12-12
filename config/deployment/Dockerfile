@@ -48,11 +48,11 @@ RUN pip install gunicorn==19.6.0
 
 ENV APP_USER pathviz
 
-RUN mkdir /var/www/backend
-RUN groupadd -r ${APP_USER} \
+
+#RUN groupadd -r ${APP_USER} \
     && useradd -r -m \
     --home-dir ${APP_ROOT} \
     -s /usr/sbin/nologin \
     -g ${APP_USER} ${APP_USER}
 #USER ${APP_USER}
-ADD . ${APP_ROOT}
+#ADD . ${APP_ROOT}
