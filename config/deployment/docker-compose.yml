@@ -8,6 +8,7 @@ services:
     volumes:
       - ../../backend:/var/www/backend
       - ./nginx:/etc/nginx/conf.d
+      - ./logs:/logs
     depends_on:
       - django
   django:
