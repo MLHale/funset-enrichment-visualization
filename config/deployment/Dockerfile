@@ -47,7 +47,7 @@ RUN pip install django-ipware
 RUN pip install gunicorn==19.6.0
 
 ENV APP_USER pathviz
-RUN mkdir /var/www;
+
 RUN mkdir /var/www/backend
 RUN groupadd -r ${APP_USER} \
     && useradd -r -m \
