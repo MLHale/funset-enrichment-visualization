@@ -50,9 +50,9 @@ ENV APP_USER pathviz
 
 
 #RUN groupadd -r ${APP_USER} \
-    && useradd -r -m \
-    --home-dir ${APP_ROOT} \
-    -s /usr/sbin/nologin \
-    -g ${APP_USER} ${APP_USER}
+#    && useradd -r -m \
+#    --home-dir ${APP_ROOT} \
+#    -s /usr/sbin/nologin \
+#    -g ${APP_USER} ${APP_USER}
 #USER ${APP_USER}
 #ADD . ${APP_ROOT}
