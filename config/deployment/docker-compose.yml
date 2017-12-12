@@ -16,6 +16,7 @@ services:
     command: bash -c "python manage.py makemigrations && python manage.py migrate && python manage.py migrate && gunicorn pathway_viz_backend.wsgi -w 8 -b 0.0.0.0:8000"
     volumes:
       - ../../backend:/var/www/backend
+      - ../../GOUtil:/GOUtil
     expose:
      - "8000"
     depends_on:
