@@ -51,5 +51,5 @@ RUN pip install django-ipware
 
 RUN pip install gunicorn==19.6.0
 
-USER ${APP_USER}
-ADD . ${APP_ROOT}
+#USER ${APP_USER}
+#ADD . ${APP_ROOT}
