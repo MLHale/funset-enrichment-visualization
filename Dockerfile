@@ -38,3 +38,5 @@ RUN pip install djangorestframework-jsonapi
 RUN pip install django-cors-headers
 RUN pip install bleach
 RUN pip install django-ipware
+RUN pip install scipy
+RUN pip install sklearn

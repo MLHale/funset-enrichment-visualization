@@ -18,6 +18,7 @@ services:
     volumes:
       - ../../backend:/var/www/backend
       - ../../GOUtil:/GOUtil
+      - ../../GOUtildata:/GOUtildata
     expose:
      - "8000"
     depends_on:

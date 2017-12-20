@@ -43,8 +43,9 @@ RUN pip install djangorestframework-jsonapi
 RUN pip install django-cors-headers
 RUN pip install bleach
 RUN pip install django-ipware
-
 RUN pip install gunicorn==19.6.0
+RUN pip install scipy
+RUN pip install sklearn
 
 ENV APP_USER pathviz
 

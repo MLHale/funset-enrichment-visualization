@@ -14,6 +14,7 @@ services:
     volumes:
       - ./backend:/var/www/backend
       - ./GOUtil:/GOUtil
+      - ./GOUtildata:/GOUtildata
     ports:
      - "80:8000"
     depends_on:

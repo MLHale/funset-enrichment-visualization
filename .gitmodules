@@ -8,3 +8,6 @@
 	path = GOUtil
 	url = https://github.com/thecodingdoc/GOUtil
 	branch = master
+[submodule "GOUtildata"]
+	path = GOUtildata
+	url = https://github.com/MLHale/GOUtildata
