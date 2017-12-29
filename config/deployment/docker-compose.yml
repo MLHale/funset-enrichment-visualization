@@ -14,7 +14,7 @@ services:
   django:
     build: .
     restart: always
-    command: bash -c "python manage.py makemigrations && python manage.py migrate && python manage.py migrate && gunicorn pathway_viz_backend.wsgi -w -timeout 300 8 -b 0.0.0.0:8000"
+    command: bash -c "python manage.py makemigrations && python manage.py migrate && python manage.py migrate && gunicorn pathway_viz_backend.wsgi -w 8 -timeout 300 -b 0.0.0.0:8000"
     volumes:
       - ../../backend:/var/www/backend
       - ../../GOUtil:/GOUtil
