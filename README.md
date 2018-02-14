@@ -1,5 +1,5 @@
-# pathway-viz-build
-Contains docker files for dev and production builds of the Pathway Viz project
+# funset-build
+Contains docker files for dev and production builds of the FunSet project
 
 ### Requirements
 * Docker (https://www.docker.com/)
@@ -8,8 +8,8 @@ Contains docker files for dev and production builds of the Pathway Viz project
 You need to build the docker image from the provided DockerFile and Docker Compose. To do this:
 
 ```bash
-git clone --recursive https://github.com/MLHale/pathway-viz-builds.git
-cd pathway-viz-builds
+git clone --recursive https://github.com/MLHale/funset-builds.git
+cd funset-builds
 git submodule sync
 git submodule update --init --recursive --remote
 cd backend/
