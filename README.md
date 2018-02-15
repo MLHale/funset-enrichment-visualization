@@ -28,10 +28,11 @@ To create a new admin user for use in the admin portal do the following once the
 
 ```bash
 docker-compose exec django bash
-../../../GOUtil g++ -O3 -o enrich enrich.C utilities.C --std=gnu++11
 python manage.py createsuperuser
 # provide admin credentials
-python loadterms.py -i ../../../GOUtilData/go.obo
+python loadterms.py -i ../../../GOUtildata/go.obo
+cd ../../../GOUtil
+g++ -O3 -o enrich enrich.C utilities.C --std=gnu++11
 exit
 ```
 
@@ -75,13 +76,17 @@ npm install --global surge
 
 To deploy the client app to surge, do the following:
 
+- open `frontend/config/environment`
+- set `ENV.host` to be the url where your backend server is deployed
+- save the file
+- then do the following from within the `frontend` folder:
 
 ```bash
-cd frontend
 ember build -p
-surge dist/ <path to your server name>
+surge dist/
+#specify the url to deploy to, surge will create a funny name for you by default, replace with your own domain name.
 ```
-
+> Note that `surge dist/ <url>` shortcuts the need to type in the url.
 
 ### Updating to latest versions of of the code
 To update to the latest frontend and backend codebases, simply do the following to update the provided submodules.
