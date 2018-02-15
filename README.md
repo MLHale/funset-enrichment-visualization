@@ -89,8 +89,7 @@ docker-compose up --build -d
 docker-compose exec django bash
 ../../GOUtil g++ -O3 -o enrich enrich.C utilities.C --std=gnu++11
 python manage.py createsuperuser
-python loadterms.py -i data/<path to terms obo file>
-python loadsimilarityscores.py -i
+python loadterms.py -i ../../../GOUtilData/go.obo
 
 ```
 
