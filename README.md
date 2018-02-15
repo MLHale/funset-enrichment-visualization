@@ -39,6 +39,7 @@ python manage.py createsuperuser
 python loadterms.py -i ../../../GOUtildata/go.obo
 cd ../../../GOUtil
 g++ -O3 -o enrich enrich.C utilities.C --std=gnu++11
+g++ -O3 -o funSim funSim.C utilities.C --std=gnu++11
 exit
 ```
 > This may take some time, especially when loading the terms from the go ontology.
@@ -107,6 +108,7 @@ python manage.py createsuperuser
 python loadterms.py -i ../../../GOUtildata/go.obo
 cd ../../../GOUtil
 g++ -O3 -o enrich enrich.C utilities.C --std=gnu++11
+g++ -O3 -o funSim funSim.C utilities.C --std=gnu++11
 exit
 ```
 > This may take some time, especially when loading the terms from the go ontology.
