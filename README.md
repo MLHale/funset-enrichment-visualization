@@ -1,12 +1,14 @@
-# funset-build
-Contains docker files for dev and production builds of the FunSet project
+# FunSet Enrichment Visualization
+The FunSet webserver performs Gene Ontology (GO) enrichment analysis, identifying GO terms that are statistically overrepresented in a target set with respect to a background set. The enriched terms are displayed in a 2D plot that captures the semantic similarity between terms, with the option to cluster the terms and identify a representative term for each cluster. FunSet can be used interactively or programmatically, and allows users to download the enrichment results both in tabular form and in graphical form as SVG files or in data format as JSON.
 
-### Requirements
-* Docker (https://www.docker.com/)
+## Requirements
+This app is fully containerized. There is only 1 requirement:
+* Docker (https://docs.docker.com/install/)
 
-### Installation in development
-You need to build the docker image from the provided DockerFile and Docker Compose. To do this:
+## API (Backend) Installation
+You need to build the docker image from the provided DockerFile using Docker Compose. To do this:
 
+### Acquiring the files
 ```bash
 git clone --recursive https://github.com/MLHale/funset-builds.git
 cd funset-builds
@@ -17,6 +19,10 @@ git checkout master
 cd ../frontend/
 git checkout master
 cd ..
+```
+
+### Building and Running the API
+```bash
 docker-compose build
 docker-compose up -d
 ```
@@ -35,37 +41,34 @@ cd ../../../GOUtil
 g++ -O3 -o enrich enrich.C utilities.C --std=gnu++11
 exit
 ```
+> This may take some time, especially when loading the terms from the go ontology.
 
-### Running the backend in development
-You can run the backend server using the following (executed from the build directory):
+Now visit `localhost` in your host browser to view the API.
 
-```bash
-docker-compose up
-```
-Now visit `localhost` in your host browser to view the app.
+## Client-side App Installation
+The client-side app is designed to run separately from the API as a static web app.
 
-
-### Development Environment Setup
-If you plan to edit the client-side app, you need to,  upon initial install, build the ember dependencies. Do the following (on the host, from the `funset-builds/frontend/` folder):
-
+### Building the app
 * install npm 6.0.0+
 * install ember-cli 2.16.2 +
 
-Then:
+Then, from the `funset-builds/frontend/` folder):
 
 ```bash
 npm install
 ```
 
-### Running the client-side ember app in development
-The following commands compiles and pushes the latest client code to the server (`localhost:4200`):
+- open `frontend/config/environment`
+- set `ENV.host` to the url where your backend server is deployed
+- save the file
+- then do the following from within the `frontend` folder:
 
 ```bash
-cd frontend
-ember s
+ember build -p
 ```
+> This will build the client-side app as a set of html/css/js files in the `dist/` directory.
 
-### Deploying the client-side app to production using surge
+### Deploy the client-side app to a production CDN using surge
 The client-side app should be served using a content deployment network (CDN). A good one is [surge](surge.sh).
 
 To setup surge:
@@ -73,13 +76,7 @@ To setup surge:
 npm install --global surge
 ```
 
-
 To deploy the client app to surge, do the following:
-
-- open `frontend/config/environment`
-- set `ENV.host` to be the url where your backend server is deployed
-- save the file
-- then do the following from within the `frontend` folder:
 
 ```bash
 ember build -p
@@ -87,6 +84,43 @@ surge dist/
 #specify the url to deploy to, surge will create a funny name for you by default, replace with your own domain name.
 ```
 > Note that `surge dist/ <url>` shortcuts the need to type in the url.
+
+## Development Environment
+### Running the backend API in development
+In addition to the production deployment, you can also run the server in development mode. In development mode, the server will reload automatically whenever you make any sort of code changes in python.
+
+To run the server in dev mode, simply execute the following from within the `dev` folder:
+
+```bash
+docker-compose build
+docker-compose up -d
+```
+Now visit `localhost` in your host browser to view the api.
+
+### Setup an Admin user and compile C libraries
+If you run the server in dev mode, you will still need to set it up first.
+
+```bash
+docker-compose exec django bash
+python manage.py createsuperuser
+# provide admin credentials
+python loadterms.py -i ../../../GOUtildata/go.obo
+cd ../../../GOUtil
+g++ -O3 -o enrich enrich.C utilities.C --std=gnu++11
+exit
+```
+> This may take some time, especially when loading the terms from the go ontology.
+
+
+### Running the client-side ember app in development
+Like the backend API, the front-end client-side app can also be run locally in development mode (i.e. instead of pushing to surge). While running in dev mode any changes to the javascript code will automatically recompile and re-run the app. The following commands runs the client-side app in dev mode:
+
+from `frontend`, run:
+```bash
+ember s
+```
+
+visit the client-side app at: `localhost:4200`
 
 ### Updating to latest versions of of the code
 To update to the latest frontend and backend codebases, simply do the following to update the provided submodules.
@@ -101,25 +135,6 @@ or type:
 
 ```bash
 git submodule update --remote
-```
-
-### Deployment for production
-For deploying the server to AWS EC2 / Ubuntu 16.04 server:
-
-- deploy a new amazon ec2 ubuntu 16.04 server instance using the AWS Console or set it up on a local server (e.g. on ESXi)
-- install Docker and `docker-compose` on ubuntu 16.04
-- do the following
-```bash
-git clone --recursive https://github.com/MLHale/funset-builds.git
-cd funset-builds
-docker-compose up --build -d
-docker-compose exec django bash
-python manage.py createsuperuser
-# provide admin credentials
-python loadterms.py -i ../../../GOUtilData/go.obo
-cd ../../../GOUtil
-g++ -O3 -o enrich enrich.C utilities.C --std=gnu++11
-exit
 ```
 
 ## Collaborating on this project
