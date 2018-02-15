@@ -114,10 +114,12 @@ git clone --recursive https://github.com/MLHale/funset-builds.git
 cd funset-builds
 docker-compose up --build -d
 docker-compose exec django bash
-../../../GOUtil g++ -O3 -o enrich enrich.C utilities.C --std=gnu++11
 python manage.py createsuperuser
 # provide admin credentials
 python loadterms.py -i ../../../GOUtilData/go.obo
+cd ../../../GOUtil
+g++ -O3 -o enrich enrich.C utilities.C --std=gnu++11
+exit
 ```
 
 ## Collaborating on this project
