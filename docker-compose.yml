@@ -1,5 +1,28 @@
-version: "3"
+version: "2"
 services:
+  nginx:
+    image: nginx:latest
+    restart: always
+    ports:
+      - "81:8000"
+    volumes:
+      - ./backend:/var/www/backend
+      - ./prod/nginx:/etc/nginx/conf.d
+      - ./prod/logs:/var/logs/nginx
+    depends_on:
+      - django
+  django:
+    build: .
+    restart: always
+    command: bash -c "python manage.py makemigrations && python manage.py migrate && python manage.py migrate && gunicorn pathway_viz_backend.wsgi -w 8 -t 300 -b 0.0.0.0:8000"
+    volumes:
+      - ./backend:/var/www/backend
+      - ./GOUtil:/GOUtil
+      - ./GOUtildata:/GOUtildata
+    expose:
+     - "8000"
+    depends_on:
+     - db
   db:
     restart: always
     image: postgres
@@ -8,17 +31,6 @@ services:
       - postgres-data:/var/lib/postgresql/data
       - postgres-logs:/var/log/postgresql
       - ./database-backup:/database-backup
-  django:
-    build: .
-    command: python /var/www/backend/manage.py runserver 0.0.0.0:8000
-    volumes:
-      - ./backend:/var/www/backend
-      - ./GOUtil:/GOUtil
-      - ./GOUtildata:/GOUtildata
-    ports:
-     - "80:8000"
-    depends_on:
-     - db
 volumes:
   postgres-config:
   postgres-data:

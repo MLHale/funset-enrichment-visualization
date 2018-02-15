@@ -18,40 +18,21 @@ cd ../frontend/
 git checkout master
 cd ..
 docker-compose build
+docker-compose up -d
 ```
 
-This creates a few docker containers with all of the requisite installed dependencies to run the dev environment.
-Now initialize the new database:
+This creates a few docker containers with all of the requisite installed dependencies to run the dev environment. It also initializes the database and starts the containers.
+
+### Setup an Admin user and compile C libraries
+To create a new admin user for use in the admin portal do the following once the containers are up and running (i.e. `docker-compose up -d` has been run).
 
 ```bash
-docker-compose run django bash
-python manage.py makemigrations
-python manage.py migrate
+docker-compose exec django bash
+../../../GOUtil g++ -O3 -o enrich enrich.C utilities.C --std=gnu++11
 python manage.py createsuperuser
 # provide admin credentials
+python loadterms.py -i ../../../GOUtilData/go.obo
 exit
-```
-### Development Environment Setup
-If you plan to edit the client-side app, you need to,  upon initial install, build the ember dependencies. Do the following (on the host):
-
-* install npm 6.0.0+
-* install ember-cli 2.16.2 +
-
-Then:
-
-```bash
-cd frontend/
-npm install
-```
-
-
-
-### Running the ember app
-The following commands compiles and pushes the latest client code to the server:
-
-```bash
-cd frontend
-ember s
 ```
 
 ### Running the backend in development
@@ -61,6 +42,46 @@ You can run the backend server using the following (executed from the build dire
 docker-compose up
 ```
 Now visit `localhost` in your host browser to view the app.
+
+
+### Development Environment Setup
+If you plan to edit the client-side app, you need to,  upon initial install, build the ember dependencies. Do the following (on the host, from the `funset-builds/frontend/` folder):
+
+* install npm 6.0.0+
+* install ember-cli 2.16.2 +
+
+Then:
+
+```bash
+npm install
+```
+
+### Running the client-side ember app in development
+The following commands compiles and pushes the latest client code to the server (`localhost:4200`):
+
+```bash
+cd frontend
+ember s
+```
+
+### Deploying the client-side app to production using surge
+The client-side app should be served using a content deployment network (CDN). A good one is [surge](surge.sh).
+
+To setup surge:
+```bash
+npm install --global surge
+```
+
+
+To deploy the client app to surge, do the following:
+
+
+```bash
+cd frontend
+ember build -p
+surge dist/ <path to your server name>
+```
+
 
 ### Updating to latest versions of of the code
 To update to the latest frontend and backend codebases, simply do the following to update the provided submodules.
@@ -76,21 +97,22 @@ or type:
 ```bash
 git submodule update --remote
 ```
-### Deployment for production
-For deploying the server to AWS EC2:
 
-- deploy a new amazon ec2 ubuntu instance using the AWS Console
-- install Docker and `docker-compose` on ubuntu
+### Deployment for production
+For deploying the server to AWS EC2 / Ubuntu 16.04 server:
+
+- deploy a new amazon ec2 ubuntu 16.04 server instance using the AWS Console or set it up on a local server (e.g. on ESXi)
+- install Docker and `docker-compose` on ubuntu 16.04
 - do the following
 ```bash
-git clone --recursive https://github.com/MLHale/pathway-viz-builds.git
-cd pathway-viz-builds/config/deployment
+git clone --recursive https://github.com/MLHale/funset-builds.git
+cd funset-builds
 docker-compose up --build -d
 docker-compose exec django bash
-../../GOUtil g++ -O3 -o enrich enrich.C utilities.C --std=gnu++11
+../../../GOUtil g++ -O3 -o enrich enrich.C utilities.C --std=gnu++11
 python manage.py createsuperuser
+# provide admin credentials
 python loadterms.py -i ../../../GOUtilData/go.obo
-
 ```
 
 ## Collaborating on this project
@@ -138,7 +160,7 @@ Now visit ```localhost:8080``` or ```<ip>:8080``` to view the current performanc
 ![cadvisor](docs/img/cadvisor.png)
 
 ## License
-Pathway Viz is a web-based BIOI tool for visualizing genetic pathway information.
+Funset is a web-based BIOI tool for visualizing genetic pathway information.
 Copyright (C) 2017  Matthew L. Hale, Dario Ghersi, Ishwor Thapa
 
 This program is free software: you can redistribute it and/or modify
