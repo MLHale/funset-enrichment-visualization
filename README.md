@@ -14,11 +14,6 @@ git clone --recursive https://github.com/MLHale/funset-builds.git
 cd funset-builds
 git submodule sync
 git submodule update --init --recursive --remote
-cd backend/
-git checkout master
-cd ../frontend/
-git checkout master
-cd ..
 ```
 
 ### Building and Running the API
