@@ -10,8 +10,8 @@ You need to build the docker image from the provided DockerFile using Docker Com
 
 ### Acquiring the files
 ```bash
-git clone --recursive https://github.com/MLHale/funset-builds.git
-cd funset-builds
+git clone --recursive https://github.com/mlhale/funset-enrichment-visualization.git
+cd funset-enrichment-visualization
 git submodule sync
 git submodule update --init --recursive --remote
 ```
