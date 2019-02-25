@@ -2,8 +2,8 @@
 # @Date:   2018-02-14T23:02:38-06:00
 # @Email:  mlhale@unomaha.edu
 # @Filename: docker-compose.yml
-# @Last modified by:   mlhale
-# @Last modified time: 2018-02-15T00:21:25-06:00
+# @Last modified by:   matthale
+# @Last modified time: 2019-02-25T13:18:18-06:00
 # @License: Funset is a web-based BIOI tool for visualizing genetic pathway information. This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version. This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details. You should have received a copy of the GNU General Public License along with this program. If not, see http://www.gnu.org/licenses/.
 # @Copyright: Copyright (C) 2017 Matthew L. Hale, Dario Ghersi, Ishwor Thapa
 
@@ -17,7 +17,7 @@ services:
     ports:
       - "80:8000"
     volumes:
-      - ./backend:/var/www/backend
+      - ./funset-backend:/var/www/backend
       - ./prod/nginx:/etc/nginx/conf.d
       - ./prod/logs:/var/logs/nginx
     depends_on:
@@ -27,7 +27,7 @@ services:
     restart: always
     command: bash -c "python manage.py makemigrations && python manage.py migrate && python manage.py migrate && gunicorn pathway_viz_backend.wsgi -w 8 -t 300 -b 0.0.0.0:8000"
     volumes:
-      - ./backend:/var/www/backend
+      - ./funset-backend:/var/www/backend
       - ./GOUtil:/GOUtil
       - ./GOUtildata:/GOUtildata
     expose:

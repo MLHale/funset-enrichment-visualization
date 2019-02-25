@@ -1,9 +1,9 @@
 [submodule "backend"]
-	path = backend
+	path = funset-backend
 	url = https://github.com/MLHale/funset-backend
 	branch = master
 [submodule "frontend"]
-	path = frontend
+	path = funset-frontend
 	url = https://github.com/MLHale/funset-frontend
 	branch = master
 [submodule "GOUtil"]
