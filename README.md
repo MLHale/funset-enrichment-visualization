@@ -31,7 +31,7 @@ To create a new admin user for use in the admin portal do the following once the
 docker-compose exec django bash
 python manage.py createsuperuser
 # provide admin credentials
-python loadterms.py -i ../../../GOUtildata/go.obo -n "jan-2018" -d "(default) January 2018 GO Ontology"
+python loadterms.py -i ../../../GOUtildata/<month-year>/go.obo -n "jan-2018" -d "(default) January 2018 GO Ontology"
 cd ../../../GOUtil
 g++ -O3 -o enrich enrich.C utilities.C --std=gnu++11
 g++ -O3 -o funSim funSim.C utilities.C --std=gnu++11

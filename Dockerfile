@@ -37,9 +37,9 @@ RUN apt-get install libboost-dev -y
 #Python packages
 RUN pip install python-memcached
 RUN pip install Django==1.11
-RUN pip install djangorestframework
+RUN pip install djangorestframework==3.6.3
 RUN pip install markdown
-RUN pip install django-filter
+RUN pip install django-filter==1.1
 RUN pip install psycopg2-binary
 RUN pip install requests
 RUN pip install djangorestframework-jsonapi
