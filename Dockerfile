@@ -24,7 +24,7 @@ ENV APP_ROOT /var/www/backend
 WORKDIR ${APP_ROOT}
 
 #Linux stuff
-RUN apt-get update
+RUN apt-get update --fix-missing
 RUN apt-get install python2.7 python-pip -y
 RUN pip install --upgrade pip
 RUN apt-get install libevent-dev -y
